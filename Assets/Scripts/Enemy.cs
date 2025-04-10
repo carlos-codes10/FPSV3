@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 
 public enum enemyStates
@@ -16,7 +15,7 @@ public enum enemyStates
 public class Enemy : MonoBehaviour
 {
 
-     [SerializeField] NavMeshAgent agent;
+    [SerializeField] NavMeshAgent agent;
     [SerializeField] Transform target;
 
     enemyStates states;
@@ -24,7 +23,7 @@ public class Enemy : MonoBehaviour
     float wanderRange = 7;
     Vector3 startingLocation;
     float playerSightRange = 5;
-    float playerAttackRange = 3;
+    float playerAttackRange = 1;
     float currentStateElapsed;
     float RecoveryTime = 3f;
     Vector3 randomLocation;
@@ -72,8 +71,9 @@ public class Enemy : MonoBehaviour
             Debug.Log("Random Location Set!");
             SetLocation();
 
-            if (distance > wanderRange)
+            if (distance > wanderRange && !(distance < playerSightRange))
             {
+
                 agent.SetDestination(randomLocation);
             }
             else
@@ -103,14 +103,20 @@ public class Enemy : MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, target.position);
 
-        if (distance > playerSightRange && distance < wanderRange)
-        {
-            agent.SetDestination(target.position);
-        }
-        else if (distance > playerSightRange && distance > wanderRange)
+        if (distance > playerSightRange && distance > wanderRange)
         {
             states = enemyStates.WANDER;
         }
+        else if (distance > playerSightRange)
+        {
+            agent.SetDestination(target.position);
+        }
+        else if (distance > playerAttackRange)
+        {
+            Debug.Log("ENEMY IS GETTING CLOSER!!!");
+            agent.SetDestination(target.position);
+        }
+        
         else
             states = enemyStates.ATTACK;
 
@@ -123,16 +129,12 @@ public class Enemy : MonoBehaviour
         Debug.Log("Attack Message Called!:");
         float distance = Vector3.Distance(transform.position, target.position);
 
-        if (distance > playerAttackRange && distance < playerSightRange)
+        if (distance < playerAttackRange)
         {
-            agent.SetDestination(target.position);
-        }
-        else if (distance > playerSightRange && distance > playerSightRange)
-        {
-            states = enemyStates.PURSUE;
+            Debug.Log("Player has been hit!");
         }
         else
-            Debug.Log("Player has been hit!");
+            states = enemyStates.PURSUE;
 
 
 
