@@ -20,9 +20,9 @@ public class Enemy : MonoBehaviour
 
     enemyStates states;
 
-    float wanderRange = 7;
+    float wanderRange = 8;
     Vector3 startingLocation;
-    float playerSightRange = 5;
+    float playerSightRange = 6;
     float playerAttackRange = 1;
     float currentStateElapsed;
     float RecoveryTime = 3f;
