@@ -28,6 +28,7 @@ public class FPSController : MonoBehaviour
     Gun currentGun = null;
     Vector2 movementInput;
     Vector2 lookInput;
+    bool jumped = false;
     bool sprintInput = false;
     bool isShooting = false;
 
@@ -68,17 +69,6 @@ public class FPSController : MonoBehaviour
         velocity = Vector3.Lerp(velocity, noVelocity, 5 * Time.deltaTime);
 
     }
-
-    /*void FireGun()
-    {
-        // don't fire if we don't have a gun
-        if (currentGun == null)
-            return;
-
-        // pressed the fire button
-        if (isShooting)
-            currentGun?.AttemptFire();
-    }*/
     void AutomaticFire()
     {
         if (currentGun == null)
@@ -89,6 +79,7 @@ public class FPSController : MonoBehaviour
 
         if (currentGun.AttemptAutomaticFire())
         {
+            Debug.Log("AUTOMATIC GUN FIRING");
             currentGun?.AttemptFire();
         }
 
@@ -121,12 +112,14 @@ public class FPSController : MonoBehaviour
     }
        
 
-    void OnJump()
+    void OnJump(InputValue v)
     {
-        Debug.Log("Message OmJump Called");
+        jumped = v.isPressed;
+
+        Debug.Log("Message OnJump Called");
         grounded = controller.isGrounded;
 
-        if (Input.GetButtonDown("Jump") && grounded)
+        if (jumped && grounded)
         {
             velocity.y += Mathf.Sqrt(jumpForce * -1 * gravity);
         }
