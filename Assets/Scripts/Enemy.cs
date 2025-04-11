@@ -82,10 +82,6 @@ public class Enemy : MonoBehaviour
             currentStateElapsed = 0;
         }
 
-
-
-        
-
     }
 
 
@@ -115,23 +111,22 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("ENEMY IS GETTING CLOSER!!!");
             agent.SetDestination(target.position);
-        }
-        
+        } 
         else
             states = enemyStates.ATTACK;
-
-
-        
+   
     }
 
     void Attack()
     {
         Debug.Log("Attack Message Called!:");
+        agent.isStopped = false;
         float distance = Vector3.Distance(transform.position, target.position);
 
         if (distance < playerAttackRange)
         {
             Debug.Log("Player has been hit!");
+            
         }
         else
             states = enemyStates.PURSUE;
@@ -143,6 +138,7 @@ public class Enemy : MonoBehaviour
         Debug.Log("Recovery Message Called!: ENEMY HIT!");
         agent.isStopped = true;
         currentStateElapsed += Time.deltaTime;
+
         if (currentStateElapsed >= RecoveryTime)
         {
             states = enemyStates.PURSUE;
@@ -163,7 +159,7 @@ public class Enemy : MonoBehaviour
 
     public void ApplyKnockback(Vector3 knockback)
     {
-        GetComponent<Rigidbody>().AddForce(knockback, ForceMode.Impulse);
+        GetComponent<Rigidbody>().AddForce(knockback, ForceMode.Impulse); 
     }
 
     public void Respawn()
