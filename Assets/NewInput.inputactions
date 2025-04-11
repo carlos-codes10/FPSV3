@@ -18,7 +18,7 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "ad692228-90ab-4fd7-a9fb-a67788bc5bd8",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -27,7 +27,7 @@
                     "name": "Shoot",
                     "type": "Button",
                     "id": "953999ed-f696-4096-9272-2d4d2f6a0cb9",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -36,7 +36,25 @@
                     "name": "ScrollWheel",
                     "type": "Button",
                     "id": "59bd3ad7-d0da-4436-81a9-8a45eadb8398",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "164070cd-4649-461d-9fd0-b9115a4837b2",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Sprint",
+                    "type": "Button",
+                    "id": "11a88bda-865a-44a6-a308-d1ed9d6cfba5",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -168,7 +186,7 @@
                     "name": "",
                     "id": "b4711c5e-ae47-4c9f-8a9a-5c7ecb7e1059",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "",
                     "action": "Shoot",
@@ -207,6 +225,28 @@
                     "action": "ScrollWheel",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "7dad0003-8269-45e5-9d94-b52db8e52d5b",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3b53a637-8c78-4f67-a8c0-2e23cec61fb7",
+                    "path": "<Keyboard>/Shift",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

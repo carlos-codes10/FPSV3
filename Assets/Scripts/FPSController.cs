@@ -27,6 +27,9 @@ public class FPSController : MonoBehaviour
     int gunIndex = 0;
     Gun currentGun = null;
     Vector2 movementInput;
+    Vector2 lookInput;
+    bool sprintInput = false;
+    bool isShooting = false;
 
     // properties
     public GameObject Cam { get { return cam; } }
@@ -55,6 +58,7 @@ public class FPSController : MonoBehaviour
     {
 
         Movement();
+        AutomaticFire();
         //HandleSwitchGun();
         Look();
 
@@ -65,6 +69,31 @@ public class FPSController : MonoBehaviour
 
     }
 
+    /*void FireGun()
+    {
+        // don't fire if we don't have a gun
+        if (currentGun == null)
+            return;
+
+        // pressed the fire button
+        if (isShooting)
+            currentGun?.AttemptFire();
+    }*/
+    void AutomaticFire()
+    {
+        if (currentGun == null)
+            return;
+
+        if (isShooting)
+        {
+
+        if (currentGun.AttemptAutomaticFire())
+        {
+            currentGun?.AttemptFire();
+        }
+
+        }
+    }
     void Movement()
     {
 
@@ -78,7 +107,7 @@ public class FPSController : MonoBehaviour
         }
 
         Vector3 move = transform.right * movementInput.x + transform.forward * movementInput.y;
-        controller.Move(move * movementSpeed * (GetSprint() ? 2 : 1) * Time.deltaTime);
+        controller.Move(move * movementSpeed * (sprintInput ? 2 : 1) * Time.deltaTime);
 
         velocity.y += gravity * Time.deltaTime;
 
@@ -90,6 +119,7 @@ public class FPSController : MonoBehaviour
         Debug.Log("Message called OnMovement!");
         movementInput = v.Get<Vector2>();
     }
+       
 
     void OnJump()
     {
@@ -104,9 +134,9 @@ public class FPSController : MonoBehaviour
 
     void Look()
     {
-        Vector2 looking = GetPlayerLook();
-        float lookX = looking.x * lookSensitivityX * Time.deltaTime;
-        float lookY = looking.y * lookSensitivityY * Time.deltaTime;
+        
+        float lookX = lookInput.x * lookSensitivityX * Time.deltaTime;
+        float lookY = lookInput.y * lookSensitivityY * Time.deltaTime;
 
         xRotation -= lookY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
@@ -114,6 +144,11 @@ public class FPSController : MonoBehaviour
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
         transform.Rotate(Vector3.up * lookX);
+    }
+
+    public void OnLook(InputValue v)
+    {
+        lookInput = v.Get<Vector2>();
     }
 
     void OnScrollWheel(InputValue v)
@@ -187,21 +222,31 @@ public class FPSController : MonoBehaviour
 
     // Input methods
 
-    void OnShoot()
+    void OnShoot(InputValue v)
     {
-
-        Debug.Log("OnShoot Message Called!");
 
         if (currentGun == null)
         {
             return;
         }
 
-        currentGun?.AttemptFire();
+        isShooting = v.isPressed;  
+
+        Debug.Log("OnShoot Message Called!");
+
+
+
+        if (isShooting)
+        {     
+            
+          currentGun?.AttemptFire();
+            
+        }
+        
 
     }
 
-    Vector2 GetPlayerLook()
+    /*Vector2 GetPlayerLook()
     {
         return new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
     }
@@ -209,6 +254,11 @@ public class FPSController : MonoBehaviour
     bool GetSprint()
     {
         return Input.GetButton("Sprint");
+    }*/
+
+    bool OnSprint(InputValue v)
+    {
+        return sprintInput = v.isPressed;
     }
 
     // Collision methods

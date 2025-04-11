@@ -136,8 +136,6 @@ public class Enemy : MonoBehaviour
         else
             states = enemyStates.PURSUE;
 
-
-
     }
 
     void Recovery()
@@ -158,7 +156,6 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("TIGGER COLLISION ON ENEMY");
             states = enemyStates.RECOVERY;
-            Destroy(other.gameObject);
         }
         
     }

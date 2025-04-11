@@ -6139,8 +6139,8 @@ MonoBehaviour:
   gunHold: {fileID: 392724003}
   initialGun: {fileID: 0}
   movementSpeed: 5
-  lookSensitivityX: 1000
-  lookSensitivityY: 500
+  lookSensitivityX: 100
+  lookSensitivityY: 50
   gravity: -20
   jumpForce: 5
 --- !u!114 &2071811437
