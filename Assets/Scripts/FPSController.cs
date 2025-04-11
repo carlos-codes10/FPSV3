@@ -28,7 +28,6 @@ public class FPSController : MonoBehaviour
     Gun currentGun = null;
     Vector2 movementInput;
     Vector2 lookInput;
-    bool jumped = false;
     bool sprintInput = false;
     bool isShooting = false;
 
@@ -112,17 +111,17 @@ public class FPSController : MonoBehaviour
     }
        
 
-    void OnJump(InputValue v)
+    void OnJump()
     {
-        jumped = v.isPressed;
 
         Debug.Log("Message OnJump Called");
         grounded = controller.isGrounded;
 
-        if (jumped && grounded)
+        if (grounded)
         {
             velocity.y += Mathf.Sqrt(jumpForce * -1 * gravity);
         }
+
     }
 
     void Look()
