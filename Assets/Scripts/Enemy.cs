@@ -126,7 +126,8 @@ public class Enemy : MonoBehaviour
         if (distance < playerAttackRange)
         {
             Debug.Log("Player has been hit!");
-            
+            states = enemyStates.RECOVERY;
+
         }
         else
             states = enemyStates.PURSUE;
@@ -146,7 +147,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<Projectile>() != null)
         {
@@ -154,7 +155,7 @@ public class Enemy : MonoBehaviour
             states = enemyStates.RECOVERY;
         }
         
-    }
+    }*/
 
 
     public void ApplyKnockback(Vector3 knockback)
