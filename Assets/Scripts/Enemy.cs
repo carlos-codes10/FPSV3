@@ -136,7 +136,7 @@ public class Enemy : MonoBehaviour
 
     void Recovery()
     {
-        Debug.Log("Recovery Message Called!: ENEMY HIT!");
+        Debug.Log("Recovery Message Called!: PLAYER HIT!");
         agent.isStopped = true;
         currentStateElapsed += Time.deltaTime;
 
