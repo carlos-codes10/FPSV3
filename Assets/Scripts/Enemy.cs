@@ -160,7 +160,9 @@ public class Enemy : MonoBehaviour
 
     public void ApplyKnockback(Vector3 knockback)
     {
-        GetComponent<Rigidbody>().AddForce(knockback, ForceMode.Impulse); 
+
+       // GetComponent<Rigidbody>().AddForce(knockback, ForceMode.Impulse);
+
     }
 
     public void Respawn()
